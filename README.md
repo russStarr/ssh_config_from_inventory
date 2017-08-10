@@ -1,4 +1,4 @@
-Role Name
+ssh_config_from_inventory
 =========
 
 Manage ssh client configuration based on Ansible inventory.
@@ -11,28 +11,50 @@ This role requires the `debug`, `template`, and `blockinfile` module. The `block
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+### User Defined Variables
+
+|Variable|Default|Description|
+|---|---|---|
+| `ssh_configs_dir` | `{{ playbook_dir }}/ssh_configs` | Location where the group specific SSH config files are stored prior to merging to a single SSH config file. |
+| `ssh_config_file` | `{{ ssh_configs_dir }}/ssh_config` | Where should the SSH client configuration be written to? Most implementations use ``~/.ssh/config` so you can change this if you want. |
+| `inventory_groups` | `["all"]` | Which inventory groups should we read to create SSH client configuration for? By default the built-in group `all` will be used since it should always be valid. |
+
+### Role Consumed Variables
+|Variable|Usage|Description|
+|---|---|---|
+|`inventory_hostname_short`|Required but usually set automatically.|This name will be used to define the `Host` section of the SSH client configuration.|
+|`ansible_host`|optional|If set, a `HostName` value will be set for the host. This is useful when you do not have the host in DNS.|
+|`ansible_port`|optional|If set, a `Port` value will be set for the host.|
+|`ansible_user`|optional|If set, a `User` value will be set for the host.|
+|`ansible_ssh_private_key_file`|optional|If set, a `IdentityFile` value will be set for the host.
+
+All Role Consumed Variables can be defined in your [Ansible inventory file](http://docs.ansible.com/ansible/latest/intro_inventory.html).
 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+No other roles are required for this to work.
 
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
-
-    - hosts: servers
+Here is an example play that you may wish to add to one of your existing playbooks. All the variables are defined here for illustration purposes. The role is intended to be used by localhost as the current user, though you can change that to suit your needs.
+    - hosts: localhost
+      become: "False"
+      gather_facts: "False"
+      vars:
+        inventory_groups: ["production","staging"]
+        ssh_configs_dir: "/tmp/ssh_config"
+        ssh_config_file: "{{ ssh_configs_dir }}/ssh_config"
       roles:
-         - { role: username.rolename, x: 42 }
+        - russStarr.ssh_config_from_inventory
 
 License
 -------
 
-Apache
+Apache 2.0
 
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+N/A
