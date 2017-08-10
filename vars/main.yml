@@ -2,5 +2,5 @@
 # vars file for ssh_config_from_inventory
 
 # change to ~/.ssh/config if you wish
-- ssh_config_file=./ssh_config
-- inv_group=all
+- ssh_config_file: ./ssh_config
+- inv_group: all
