@@ -2,7 +2,7 @@
 # tasks file for ssh_config_from_inventory
 - name: Make sure ssh_configs_dir is created
   file:
-    path: {{ ssh_configs_dir }}
+    path: "{{ ssh_configs_dir }}"
     state: directory
     mode: 0755
 - name: create a local config file
