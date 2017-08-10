@@ -2,4 +2,4 @@
 # defaults file for ssh_config_from_inventory
 ssh_configs_dir: "{{ playbook_dir }}/ssh_configs"
 ssh_config_file: "{{ ssh_configs_dir }}/ssh_config"
-inv_groups: ["all"]
+inventory_groups: ["all"]

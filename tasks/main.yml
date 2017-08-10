@@ -10,7 +10,7 @@
     src: "ssh_config.j2"
     dest: "{{ ssh_configs_dir }}/ssh_config_{{item}}"
   with_items:
-    - "{{ inv_groups }}"
+    - "{{ inventory_groups }}"
 - name: Merge the config with your local SSH config
   blockinfile:
     block: "{{ lookup('file', '{{ ssh_configs_dir }}/ssh_config_{{item}}') }}"
@@ -20,4 +20,4 @@
     insertafter: EOF
     marker: "# {mark} ANSIBLE MANAGED BLOCK (ssh_config_from_inventory) {{item}}"
   with_items:
-    - "{{ inv_groups }}"
+    - "{{ inventory_groups }}"
