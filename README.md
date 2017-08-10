@@ -8,6 +8,20 @@ Requirements
 
 This role requires the `debug`, `template`, and `blockinfile` module. The `blockinfile` was added in Ansible version 2.0 so that is the minimum supported version.
 
+Installation
+------------
+By default Ansible Galaxy will install roles in a system wide location at /etc/ansible/roles. If you have sudo privileges and wish to place them there, you can do a:
+
+```
+sudo ansible-galaxy install -r requirements.yml
+```
+
+If you do not have root and only want to install the role in your current Ansible project folder using the default `roles` directory, then issue this command:
+
+```
+ansible-galaxy install -r requirements.yml --roles-path roles
+```
+
 Role Variables
 --------------
 
