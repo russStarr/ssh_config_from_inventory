@@ -53,15 +53,18 @@ Example Playbook
 ----------------
 
 Here is an example play that you may wish to add to one of your existing playbooks. All the variables are defined here for illustration purposes. The role is intended to be used by localhost as the current user, though you can change that to suit your needs.
-    - hosts: localhost
-      become: "False"
-      gather_facts: "False"
-      vars:
-        inventory_groups: ["production","staging"]
-        ssh_configs_dir: "/tmp/ssh_config"
-        ssh_config_file: "{{ ssh_configs_dir }}/ssh_config"
-      roles:
-        - russStarr.ssh_config_from_inventory
+
+```
+- hosts: localhost
+  become: "False"
+  gather_facts: "False"
+  vars:
+    inventory_groups: ["production","staging"]
+    ssh_configs_dir: "/tmp/ssh_config"
+    ssh_config_file: "{{ ssh_configs_dir }}/ssh_config"
+  roles:
+    - russStarr.ssh_config_from_inventory
+```
 
 License
 -------
