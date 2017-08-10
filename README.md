@@ -49,6 +49,20 @@ Dependencies
 
 No other roles are required for this to work.
 
+Compatibility
+-------------
+The configuration generated is intended to work with OpenSSH clients. I listed almost all Linux/BSD Operated Systems as compatible with the assumption that OpenSSH is very portable, especially when it comes to configuration files.
+
+Work Flow
+---------
+The steps used in the tasks for this role are high-lighted from a high level.
+
+1. First create the folder to store local SSH client configuration files by group.
+2. Go through all groups defined in `inventory_groups` and create a local SSH client configuration.
+3. Combine all the SSH client configuration files and merge them into the User Defined `ssh_config_file`, which can be ~/.ssh/config for convenience.
+
+> Note: The `blockinfile` module will manage blocks of configuration in the `ssh_config_file`. You can safely have existing configuration in your `ssh_config_file` because `blockinfile` will only look for config blocks as defined be the `{mark}` value.
+
 Example Playbook
 ----------------
 
@@ -64,6 +78,18 @@ Here is an example play that you may wish to add to one of your existing playboo
     ssh_config_file: "{{ ssh_configs_dir }}/ssh_config"
   roles:
     - russStarr.ssh_config_from_inventory
+```
+
+Results
+-------
+Before you probably had to specify many parameters to SSH into a server. For example:
+```
+ssh -i ~/.ssh/my_secret_key.pem cloud-user@my_server.domain.tld
+```
+
+Assuming you have the Role Consumed Variables defined in your Ansible inventory file, it would simply your SSH command to:
+```
+ssh my_server
 ```
 
 License
