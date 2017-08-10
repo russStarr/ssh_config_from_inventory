@@ -8,7 +8,7 @@
 - name: create a local config file
   template:
     src: "ssh_config.j2"
-    dest: "{{ ssh_configs_dir }}ssh_config_{{inv_group}}"
+    dest: "{{ ssh_configs_dir }}/ssh_config_{{inv_group}}"
   delegate_to: localhost
   become: "False"
 - name: Merge the config with your local SSH config
