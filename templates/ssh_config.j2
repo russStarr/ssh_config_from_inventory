@@ -1,4 +1,4 @@
-{% for host in groups[inv_group] %}
+{% for host in groups[inv_group] -%}
 Host {{ hostvars[host]['inventory_hostname_short'] }}
   {% if hostvars[host]['ansible_host'] is defined -%}
   HostName {{ hostvars[host]['ansible_host'] }}
@@ -14,4 +14,4 @@ Host {{ hostvars[host]['inventory_hostname_short'] }}
   {% if hostvars[host]['ansible_ssh_private_key_file'] is defined -%}
   IdentityFile {{ hostvars[host]['ansible_ssh_private_key_file'] }}
   {% endif -%}
-{% endfor %}
+{% endfor -%}
