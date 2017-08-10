@@ -1,2 +1,13 @@
 ---
 # tasks file for ssh_config_from_inventory
+
+- name: create a local config file
+  template: src=ssh_config.j2 dest=./ssh_configs/ssh_config_{{inv_group}}
+- name: Merge the config with your local SSH config
+  blockinfile:
+    block: "{{ lookup('file', './ssh_configs/ssh_config_{{inv_group}}') }}"
+    dest: {{ ssh_config_file }}
+    backup: yes
+    create: yes
+    insertafter: EOF
+    marker: "# {mark} ANSIBLE MANAGED BLOCK (ssh_config_from_inventory) {{inv_group}}"

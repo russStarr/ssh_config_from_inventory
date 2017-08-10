@@ -1,12 +1,12 @@
 Role Name
 =========
 
-A brief description of the role goes here.
+Manage ssh client configuration based on Ansible inventory.
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+This role requires the `debug`, `template`, and `blockinfile` module. The `blockinfile` was added in Ansible version 2.0 so that is the minimum supported version.
 
 Role Variables
 --------------
@@ -30,7 +30,7 @@ Including an example of how to use your role (for instance, with variables passe
 License
 -------
 
-BSD
+Apache
 
 Author Information
 ------------------

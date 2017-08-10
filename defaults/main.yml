@@ -1,2 +1,4 @@
 ---
 # defaults file for ssh_config_from_inventory
+ssh_config_file=./ssh_config
+inv_group=all

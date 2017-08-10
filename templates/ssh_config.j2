@@ -1,0 +1,17 @@
+{% for host in groups[inv_group] %}
+Host {{ hostvars[host]['inventory_hostname_short'] }}
+  {% if hostvars[host]['ansible_host'] is defined -%}
+  HostName {{ hostvars[host]['ansible_host'] }}
+  {% else -%}
+  HostName {{ host }}
+  {% endif -%}
+  {% if hostvars[host]['ansible_port'] is defined -%}
+  Port {{ hostvars[host]['ansible_port'] }}
+  {% endif -%}
+  {% if hostvars[host]['ansible_user'] is defined -%}
+  User {{ hostvars[host]['ansible_user'] }}
+  {% endif -%}
+  {% if hostvars[host]['ansible_ssh_private_key_file'] is defined -%}
+  IdentityFile {{ hostvars[host]['ansible_ssh_private_key_file'] }}
+  {% endif -%}
+{% endfor %}
