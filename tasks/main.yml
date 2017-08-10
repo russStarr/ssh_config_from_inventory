@@ -9,8 +9,6 @@
   template:
     src: "ssh_config.j2"
     dest: "{{ ssh_configs_dir }}/ssh_config_{{item}}"
-  delegate_to: localhost
-  become: "False"
   with_items:
     - "{{ inv_groups }}"
 - name: Merge the config with your local SSH config
@@ -21,7 +19,5 @@
     create: yes
     insertafter: EOF
     marker: "# {mark} ANSIBLE MANAGED BLOCK (ssh_config_from_inventory) {{item}}"
-  delegate_to: localhost
-  become: "False"
   with_items:
     - "{{ inv_groups }}"
