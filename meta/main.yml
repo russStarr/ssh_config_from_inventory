@@ -31,19 +31,19 @@ galaxy_info:
   # the ones that apply to your role. If you don't see your
   # platform on this list, let us know and we'll get it added!
   #
-  #platforms:
-  #- name: OpenBSD
-  #  versions:
-  #  - all
+  platforms:
+  - name: OpenBSD
+    versions:
+    - all
   #  - 5.6
   #  - 5.7
   #  - 5.8
   #  - 5.9
   #  - 6.0
   #  - 6.1
-  #- name: Fedora
-  #  versions:
-  #  - all
+  - name: Fedora
+    versions:
+    - all
   #  - 16
   #  - 17
   #  - 18
@@ -61,9 +61,9 @@ galaxy_info:
   #  - 10
   #  - 6
   #  - 9
-  #- name: MacOSX
-  #  versions:
-  #  - all
+  - name: MacOSX
+    versions:
+    - all
   #  - 10.10
   #  - 10.11
   #  - 10.12
@@ -78,25 +78,25 @@ galaxy_info:
   #  versions:
   #  - all
   #  - any
-  #- name: GenericBSD
-  #  versions:
-  #  - all
+  - name: GenericBSD
+    versions:
+    - all
   #  - any
-  #- name: Void Linux
-  #  versions:
-  #  - all
+  - name: Void Linux
+    versions:
+    - all
   #  - any
-  #- name: GenericLinux
-  #  versions:
-  #  - all
+  - name: GenericLinux
+    versions:
+    - all
   #  - any
   #- name: NXOS
   #  versions:
   #  - all
   #  - any
-  #- name: macOS
-  #  versions:
-  #  - all
+  - name: macOS
+    versions:
+    - all
   #  - Sierra
   #- name: IOS
   #  versions:
@@ -109,13 +109,13 @@ galaxy_info:
   #  - 2013.09
   #  - 2016.03
   #  - 2016.09
-  #- name: ArchLinux
-  #  versions:
-  #  - all
+  - name: ArchLinux
+    versions:
+    - all
   #  - any
-  #- name: FreeBSD
-  #  versions:
-  #  - all
+  - name: FreeBSD
+    versions:
+    - all
   #  - 10.0
   #  - 10.1
   #  - 10.2
@@ -131,9 +131,9 @@ galaxy_info:
   #  - 9.1
   #  - 9.2
   #  - 9.3
-  #- name: Ubuntu
-  #  versions:
-  #  - all
+  - name: Ubuntu
+    versions:
+    - all
   #  - artful
   #  - lucid
   #  - maverick
@@ -150,9 +150,9 @@ galaxy_info:
   #  - xenial
   #  - yakkety
   #  - zesty
-  #- name: Debian
-  #  versions:
-  #  - all
+  - name: Debian
+    versions:
+    - all
   #  - etch
   #  - jessie
   #  - lenny
@@ -164,9 +164,9 @@ galaxy_info:
   #  versions:
   #  - all
   #  - any
-  #- name: EL
-  #  versions:
-  #  - all
+  - name: EL
+    versions:
+    - all
   #  - 5
   #  - 6
   #  - 7
@@ -186,9 +186,9 @@ galaxy_info:
   #  - 12.3
   #  - 13.1
   #  - 13.2
-  #- name: SLES
-  #  versions:
-  #  - all
+  - name: SLES
+    versions:
+    - all
   #  - 10SP3
   #  - 10SP4
   #  - 11
@@ -198,9 +198,9 @@ galaxy_info:
   #  - 11SP4
   #  - 12
   #  - 12SP1
-  #- name: GenericUNIX
-  #  versions:
-  #  - all
+  - name: GenericUNIX
+    versions:
+    - all
   #  - any
   #- name: Solaris
   #  versions:
