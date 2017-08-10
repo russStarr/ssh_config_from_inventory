@@ -6,7 +6,7 @@
 - name: Merge the config with your local SSH config
   blockinfile:
     block: "{{ lookup('file', './ssh_configs/ssh_config_{{inv_group}}') }}"
-    dest: {{ ssh_config_file }}
+    dest: "{{ ssh_config_file }}"
     backup: yes
     create: yes
     insertafter: EOF
