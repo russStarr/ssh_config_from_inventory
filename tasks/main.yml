@@ -5,6 +5,7 @@
   template:
     src: "ssh_config.j2"
     dest: "{{ playbook_dir }}/ssh_configs/ssh_config_{{inv_group}}"
+  delegate_to: localhost
 - name: Merge the config with your local SSH config
   blockinfile:
     block: "{{ lookup('file', '{{ playbook_dir }}//ssh_configs/ssh_config_{{inv_group}}') }}"
@@ -13,3 +14,4 @@
     create: yes
     insertafter: EOF
     marker: "# {mark} ANSIBLE MANAGED BLOCK (ssh_config_from_inventory) {{inv_group}}"
+  delegate_to: localhost
