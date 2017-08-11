@@ -1,5 +1,9 @@
 ---
 - hosts: localhost
-  remote_user: root
+  become: "False"
+  #remote_user: root
+  gather_facts: "False"
+  vars:
+    inventory_groups: ["production","staging"]
   roles:
     - ssh_config_from_inventory
