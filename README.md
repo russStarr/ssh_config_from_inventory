@@ -2,6 +2,7 @@ ssh_config_from_inventory
 =========
 ![travis_status](https://travis-ci.org/russStarr/ssh_config_from_inventory.svg?branch=master)
 
+
 Manage ssh client configuration based on Ansible inventory.
 
 Requirements
@@ -30,9 +31,10 @@ Role Variables
 
 |Variable|Default|Description|
 |---|---|---|
-| `ssh_configs_dir` | `{{ playbook_dir }}/ssh_configs` | Location where the group specific SSH config files are stored prior to merging to a single SSH config file. |
-| `ssh_config_file` | `{{ ssh_configs_dir }}/ssh_config` | Where should the SSH client configuration be written to? Most implementations use `~/.ssh/config` so you can change this if you want. |
-| `inventory_groups` | `["all"]` | Which inventory groups should we read to create SSH client configuration for? By default the built-in group `all` will be used since it should always be valid. |
+| `ssh_configs_dir` | `{{playbook_dir}}/ssh_configs` | Location where the group specific SSH config files are stored prior to merging to a single SSH config file. |
+| `ssh_config_file` | `{{ssh_configs_dir}}/ssh_config` | Where should the SSH client configuration be written to? Most implementations use `~/.ssh/config` so you can change this if you want. |
+| `inventory_groups` | `["all"]` | Which inventory groups should we read to create SSH client configuration for? By default the built-in group `all` will be used since it should always be valid. `ungrouped` is also a built-in group name. To get a full list of groups in your Ansible directory, use `ansible -m debug -a 'var=groups.keys()\|sort' localhost`.
+
 
 ### Role Consumed Variables
 |Variable|Usage|Description|
