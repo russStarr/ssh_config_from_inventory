@@ -1,5 +1,6 @@
 ssh_config_from_inventory
 =========
+![travis_status](https://travis-ci.org/russStarr/ssh_config_from_inventory.svg?branch=master)
 
 Manage ssh client configuration based on Ansible inventory.
 
