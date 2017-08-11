@@ -1,4 +1,4 @@
-localhost
+localhost ansible_connection=local
 
 [production]
 server1.domain.tld ansible_host=10.10.10.10
