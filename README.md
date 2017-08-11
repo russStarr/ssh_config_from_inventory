@@ -13,13 +13,13 @@ Installation
 By default Ansible Galaxy will install roles in a system wide location at /etc/ansible/roles. If you have sudo privileges and wish to place them there, you can do a:
 
 ```
-sudo ansible-galaxy install -r requirements.yml
+sudo ansible-galaxy install russStarr.ssh_config_from_inventory
 ```
 
 If you do not have root and only want to install the role in your current Ansible project folder using the default `roles` directory, then issue this command:
 
 ```
-ansible-galaxy install -r requirements.yml --roles-path roles
+ansible-galaxy install russStarr.ssh_config_from_inventory --roles-path roles
 ```
 
 Role Variables
@@ -30,7 +30,7 @@ Role Variables
 |Variable|Default|Description|
 |---|---|---|
 | `ssh_configs_dir` | `{{ playbook_dir }}/ssh_configs` | Location where the group specific SSH config files are stored prior to merging to a single SSH config file. |
-| `ssh_config_file` | `{{ ssh_configs_dir }}/ssh_config` | Where should the SSH client configuration be written to? Most implementations use ``~/.ssh/config` so you can change this if you want. |
+| `ssh_config_file` | `{{ ssh_configs_dir }}/ssh_config` | Where should the SSH client configuration be written to? Most implementations use `~/.ssh/config` so you can change this if you want. |
 | `inventory_groups` | `["all"]` | Which inventory groups should we read to create SSH client configuration for? By default the built-in group `all` will be used since it should always be valid. |
 
 ### Role Consumed Variables
@@ -38,11 +38,23 @@ Role Variables
 |---|---|---|
 |`inventory_hostname_short`|Required but usually set automatically.|This name will be used to define the `Host` section of the SSH client configuration.|
 |`ansible_host`|optional|If set, a `HostName` value will be set for the host. This is useful when you do not have the host in DNS.|
-|`ansible_port`|optional|If set, a `Port` value will be set for the host.|
 |`ansible_user`|optional|If set, a `User` value will be set for the host.|
-|`ansible_ssh_private_key_file`|optional|If set, a `IdentityFile` value will be set for the host.
+|`ansible_port`|optional|If set, a `Port` value will be set for the host.|
 
 All Role Consumed Variables can be defined in your [Ansible inventory file](http://docs.ansible.com/ansible/latest/intro_inventory.html).
+
+Here is an example of an Ansible inventory file making use of all the variables.
+```
+[production]
+server1.domain.tld ansible_host=10.10.10.10
+server2.domain.tld
+server3.domain.tld
+
+[production:vars]
+ansible_user=ansible
+ansible_ssh_private_key_file=~/.ssh/production_key.pem
+ansible_port=2222
+```
 
 Dependencies
 ------------
@@ -51,7 +63,7 @@ No other roles are required for this to work.
 
 Compatibility
 -------------
-The configuration generated is intended to work with OpenSSH clients. I listed almost all Linux/BSD Operated Systems as compatible with the assumption that OpenSSH is very portable, especially when it comes to configuration files.
+The configuration generated is intended to work with OpenSSH clients. Almost all Linux/BSD Operated Systems are listed as compatible with the assumption that OpenSSH is very portable, especially when it comes to configuration files.
 
 Work Flow
 ---------
