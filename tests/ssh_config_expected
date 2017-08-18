@@ -25,3 +25,5 @@ Host server6
   HostName 127.0.0.1
   IdentityFile ~/.ssh/staging_key.pem
 # END ANSIBLE MANAGED BLOCK (ssh_config_from_inventory) staging
+
+# extra block to make the CI diff test fail.
