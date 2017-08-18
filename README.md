@@ -40,9 +40,9 @@ Role Variables
 |Variable|Usage|Description|
 |---|---|---|
 |`inventory_hostname_short`|Required but usually set automatically.|This name will be used to define the `Host` section of the SSH client configuration.|
-|`ansible_host`|optional|If set, a `HostName` value will be set for the host. This is useful when you do not have the host in DNS.|
-|`ansible_user`|optional|If set, a `User` value will be set for the host.|
-|`ansible_port`|optional|If set, a `Port` value will be set for the host.|
+|`ansible_host` (preferred)<br> `ansible_ssh_host`|optional|If set, a `HostName` value will be set for the host. This is useful when you do not have the host in DNS.|
+|`ansible_user` (preferred)<br>`ansible_ssh_user`|optional|If set, a `User` value will be set for the host.|
+|`ansible_port` (preferred)<br>`ansible_ssh_port`|optional|If set, a `Port` value will be set for the host.|
 
 All Role Consumed Variables can be defined in your [Ansible inventory file](http://docs.ansible.com/ansible/latest/intro_inventory.html).
 
