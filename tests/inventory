@@ -6,6 +6,9 @@ server2.domain.tld
 server3.domain.tld
 
 [production:vars]
+ansible_user=ansible
+
+[production:vars]
 ansible_ssh_private_key_file=~/.ssh/production_key.pem
 
 [staging]
@@ -15,7 +18,3 @@ server6.domain.tld ansible_ssh_host=127.0.0.1
 
 [staging:vars]
 ansible_ssh_private_key_file=~/.ssh/staging_key.pem
-ansible_port=2222
-
-[all:vars]
-ansible_user=ansible
