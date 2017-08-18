@@ -24,6 +24,10 @@ If you do not have root and only want to install the role in your current Ansibl
 ansible-galaxy install russStarr.ssh_config_from_inventory --roles-path roles
 ```
 
+Upgrading
+---------
+Using one of the Installation commands previously listed, just add `--force` to your command.
+
 Role Variables
 --------------
 
