@@ -1,0 +1,27 @@
+# BEGIN ANSIBLE MANAGED BLOCK (ssh_config_from_inventory) production
+Host server1
+  HostName 10.10.10.10
+  User ansible
+  IdentityFile ~/.ssh/production_key.pem
+Host server2
+  HostName server2.domain.tld
+  User ansible
+  IdentityFile ~/.ssh/production_key.pem
+Host server3
+  HostName server3.domain.tld
+  User ansible
+  IdentityFile ~/.ssh/production_key.pem
+# END ANSIBLE MANAGED BLOCK (ssh_config_from_inventory) production
+# BEGIN ANSIBLE MANAGED BLOCK (ssh_config_from_inventory) staging
+Host server4
+  HostName server4.domain.tld
+  User mfischer
+  IdentityFile ~/.ssh/staging_key.pem
+Host server5
+  HostName server5.domain.tld
+  Port 1998
+  IdentityFile ~/.ssh/staging_key.pem
+Host server6
+  HostName 127.0.0.1
+  IdentityFile ~/.ssh/staging_key.pem
+# END ANSIBLE MANAGED BLOCK (ssh_config_from_inventory) staging

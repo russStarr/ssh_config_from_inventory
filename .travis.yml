@@ -26,6 +26,7 @@ script:
   - ansible-playbook tests/test.yml -i tests/inventory --syntax-check
   - ansible-playbook tests/test.yml -i tests/inventory --diff --verbose
   - cat tests/ssh_configs/ssh_config
+  - diff tests/ssh_config_expected tests/ssh_configs/ssh_config
 
 
 notifications:
