@@ -32,8 +32,8 @@ Role Variables
 |Variable|Default|Description|
 |---|---|---|
 | `ssh_configs_dir` | `{{playbook_dir}}/ssh_configs` | Location where the group specific SSH config files are stored prior to merging to a single SSH config file. |
-| `ssh_config_file` | `{{ssh_configs_dir}}/ssh_config` | Where should the SSH client configuration be written to? Most implementations use `~/.ssh/config` so you can change this if you want. |
-| `inventory_groups` | `["all"]` | Which inventory groups should we read to create SSH client configuration for? By default the built-in group `all` will be used since it should always be valid. `ungrouped` is also a built-in group name. To get a full list of groups in your Ansible directory, use `ansible -m debug -a 'var=groups.keys()\|sort' localhost`.
+|`ssh_config_file`|`{{ssh_configs_dir}}/ssh_config`|Where should the SSH client configuration be written to? Most implementations use `~/.ssh/config` so you can change this if you want.|
+|`inventory_groups`|`["all"]`|Which inventory groups should we read to create SSH client configuration for? By default the built-in group `all` will be used since it should always be valid. `ungrouped` is also a built-in group name. To get a full list of groups in your Ansible directory, use `ansible -m debug -a 'var=groups.keys()\|sort' localhost`.|
 
 
 ### Role Consumed Variables
@@ -48,15 +48,27 @@ All Role Consumed Variables can be defined in your [Ansible inventory file](http
 
 Here is an example of an Ansible inventory file making use of all the variables.
 ```
+localhost ansible_connection=local
+
 [production]
 server1.domain.tld ansible_host=10.10.10.10
 server2.domain.tld
 server3.domain.tld
 
 [production:vars]
-ansible_user=ansible
 ansible_ssh_private_key_file=~/.ssh/production_key.pem
+
+[staging]
+server4.domain.tld ansible_ssh_user=mfischer
+server5.domain.tld ansible_ssh_port=1998
+server6.domain.tld ansible_ssh_host=127.0.0.1
+
+[staging:vars]
+ansible_ssh_private_key_file=~/.ssh/staging_key.pem
 ansible_port=2222
+
+[all:vars]
+ansible_user=ansible
 ```
 
 Dependencies
@@ -72,27 +84,43 @@ Work Flow
 ---------
 The steps used in the tasks for this role are high-lighted from a high level.
 
-1. First create the folder to store local SSH client configuration files by group.
-2. Go through all groups defined in `inventory_groups` and create a local SSH client configuration.
-3. Combine all the SSH client configuration files and merge them into the User Defined `ssh_config_file`, which can be ~/.ssh/config for convenience.
+1.  First create the folder to store local SSH client configuration files by group.
+2.  Go through all groups defined in `inventory_groups` and create a local SSH client configuration.
+3.  Combine all the SSH client configuration files and merge them into the User Defined `ssh_config_file`, which can be ~/.ssh/config for convenience.
 
 > Note: The `blockinfile` module will manage blocks of configuration in the `ssh_config_file`. You can safely have existing configuration in your `ssh_config_file` because `blockinfile` will only look for config blocks as defined be the `{mark}` value.
 
 Example Playbook
 ----------------
 
-Here is an example play that you may wish to add to one of your existing playbooks. All the variables are defined here for illustration purposes. The role is intended to be used by localhost as the current user, though you can change that to suit your needs.
+Here are two example plays that you may wish to add to one of your existing playbooks. All the variables are defined  for illustration purposes. The role is intended to be used by localhost as the current user, though you can change that to suit your needs.
 
+**Purpose:** Read inventory groups `production` and `staging` then write an SSH configuration to /tmp/ssh_configs/ssh_config.
 ```
+---
 - hosts: localhost
   become: "False"
   gather_facts: "False"
   vars:
     inventory_groups: ["production","staging"]
-    ssh_configs_dir: "/tmp/ssh_config"
+    ssh_configs_dir: "/tmp/ssh_configs"
     ssh_config_file: "{{ ssh_configs_dir }}/ssh_config"
   roles:
     - russStarr.ssh_config_from_inventory
+```
+
+**Purpose:** Same as previous play except write the SSH configuration to the user's respective config at `~/.ssh/config`
+
+```
+---
+- hosts: localhost
+  become: "False"
+  gather_facts: "False"
+  vars:
+    inventory_groups: ["production","staging"]
+    ssh_config_file: "~/.ssh/config"
+  roles:
+    - ssh_config_from_inventory
 ```
 
 Results
