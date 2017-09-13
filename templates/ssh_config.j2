@@ -25,4 +25,7 @@ Host {{ hostvars[host]['inventory_hostname_short'] }}
 {% if hostvars[host]['ansible_ssh_private_key_file'] is defined %}
   IdentityFile {{ hostvars[host]['ansible_ssh_private_key_file'] }}
 {% endif %}
+{% if hostvars[host]['ansible_ssh_common_args'] is defined %}
+  ProxyCommand {{ hostvars[host]['ansible_ssh_common_args'] | regex_replace('^.*ProxyCommand=\'(.*?)\'.*', '\\1') }}
+{% endif %}
 {% endfor %}
