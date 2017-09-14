@@ -38,6 +38,7 @@ Role Variables
 | `ssh_configs_dir` | `{{playbook_dir}}/ssh_configs` | Location where the group specific SSH config files are stored prior to merging to a single SSH config file. |
 |`ssh_config_file`|`{{ssh_configs_dir}}/ssh_config`|Where should the SSH client configuration be written to? Most implementations use `~/.ssh/config` so you can change this if you want.|
 |`inventory_groups`|`["all"]`|Which inventory groups should we read to create SSH client configuration for? By default the built-in group `all` will be used since it should always be valid. `ungrouped` is also a built-in group name. To get a full list of groups in your Ansible directory, use `ansible -m debug -a 'var=groups.keys()\|sort' localhost`.|
+|`keepgroupnames`|`"False"`|Should ansible groupname(s) be used to create a pattern for hostname ? When a server is part of several groups, then additionnal patterns will be created to match each and every group. When set to `"True"` and with inventory file example below, `ssh server1` **and** `ssh production.server1` will both work.|
 
 
 ### Role Consumed Variables
@@ -97,7 +98,7 @@ The steps used in the tasks for this role are high-lighted from a high level.
 Example Playbook
 ----------------
 
-Here are two example plays that you may wish to add to one of your existing playbooks. All the variables are defined  for illustration purposes. The role is intended to be used by localhost as the current user, though you can change that to suit your needs.
+Here are two example plays that you may wish to add to one of your existing playbooks. All the variables are defined for illustration purposes. The role is intended to be used by localhost as the current user, though you can change that to suit your needs.
 
 **Purpose:** Read inventory groups `production` and `staging` then write an SSH configuration to /tmp/ssh_configs/ssh_config.
 ```
@@ -107,6 +108,7 @@ Here are two example plays that you may wish to add to one of your existing play
   gather_facts: "False"
   vars:
     inventory_groups: ["production","staging"]
+    keepgroupnames: "True"
     ssh_configs_dir: "/tmp/ssh_configs"
     ssh_config_file: "{{ ssh_configs_dir }}/ssh_config"
   roles:
@@ -122,6 +124,7 @@ Here are two example plays that you may wish to add to one of your existing play
   gather_facts: "False"
   vars:
     inventory_groups: ["production","staging"]
+    keepgroupnames: "True"
     ssh_config_file: "~/.ssh/config"
   roles:
     - ssh_config_from_inventory
@@ -137,6 +140,10 @@ ssh -i ~/.ssh/my_secret_key.pem cloud-user@my_server.domain.tld
 Assuming you have the Role Consumed Variables defined in your Ansible inventory file, it would simply your SSH command to:
 ```
 ssh my_server
+```
+or
+```
+ssh anygroup.my_server
 ```
 
 License
