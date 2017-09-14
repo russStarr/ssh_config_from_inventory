@@ -1,5 +1,10 @@
 {% for host in groups[item] %}
+{% if  keepgroupnames is defined and keepgroupnames == "True" %}
+Host {{ hostvars[host]['inventory_hostname_short'] }}{% for group in hostvars[host]['group_names'] %} {{ group }}.{{ hostvars[host]['inventory_hostname_short'] }}{% endfor %}
+
+{% else %}
 Host {{ hostvars[host]['inventory_hostname_short'] }}
+{% endif %}
 {% if hostvars[host]['ansible_host'] is defined %}
   HostName {{ hostvars[host]['ansible_host'] }}
 {% elif hostvars[host]['ansible_ssh_host'] is defined %}
