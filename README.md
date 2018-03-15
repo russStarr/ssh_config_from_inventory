@@ -39,6 +39,11 @@ Role Variables
 |`ssh_config_file`|`{{ssh_configs_dir}}/ssh_config`|Where should the SSH client configuration be written to? Most implementations use `~/.ssh/config` so you can change this if you want.|
 |`inventory_groups`|`["all"]`|Which inventory groups should we read to create SSH client configuration for? By default the built-in group `all` will be used since it should always be valid. `ungrouped` is also a built-in group name. To get a full list of groups in your Ansible directory, use `ansible -m debug -a 'var=groups.keys()\|sort' localhost`.|
 |`keepgroupnames`|`"False"`|Should ansible groupname(s) be used to create a pattern for hostname ? When a server is part of several groups, then additionnal patterns will be created to match each and every group. When set to `"True"` and with inventory file example below, `ssh server1` **and** `ssh production.server1` will both work.|
+| `ssh_config_project_name` | `` | Project name for use in marker. |
+| `ssh_config_host_prefix` | `` | Prefix for add to hostname. |
+| `ssh_config_default_user` | `` | Default user. For use when ansible_host not set. |
+| `ssh_config_force_user` | `` | Force rewrite user. |
+
 
 
 ### Role Consumed Variables
