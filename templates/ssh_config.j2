@@ -1,9 +1,9 @@
 {% for host in groups[item] %}
 {% if  keepgroupnames is defined and keepgroupnames == "True" %}
-Host {{ hostvars[host]['inventory_hostname_short'] }}{% for group in hostvars[host]['group_names'] %} {{ group }}.{{ hostvars[host]['inventory_hostname_short'] }}{% endfor %}
+Host {{ ssh_config_host_prefix }}{{ hostvars[host]['inventory_hostname_short'] }}{% for group in hostvars[host]['group_names'] %} {{ group }}.{{ ssh_config_host_prefix }}{{ hostvars[host]['inventory_hostname_short'] }}{% endfor %}
 
 {% else %}
-Host {{ hostvars[host]['inventory_hostname_short'] }}
+Host {{ ssh_config_host_prefix }}{{ hostvars[host]['inventory_hostname_short'] }}
 {% endif %}
 {% if hostvars[host]['ansible_host'] is defined %}
   HostName {{ hostvars[host]['ansible_host'] }}
@@ -17,10 +17,14 @@ Host {{ hostvars[host]['inventory_hostname_short'] }}
 {% elif hostvars[host]['ansible_ssh_port'] is defined %}
   Port {{ hostvars[host]['ansible_ssh_port'] }}
 {% endif %}
-{% if hostvars[host]['ansible_user'] is defined %}
+{% if ssh_config_force_user is defined and ssh_config_force_user != '' %}
+  User {{ ssh_config_force_user }}
+{% elif hostvars[host]['ansible_user'] is defined %}
   User {{ hostvars[host]['ansible_user'] }}
 {% elif hostvars[host]['ansible_ssh_user'] is defined %}
   User {{ hostvars[host]['ansible_ssh_user'] }}
+{% elif ssh_config_default_user is defined and ssh_config_default_user != '' %}
+  User {{ ssh_config_default_user }}
 {% endif %}
 {% if hostvars[host]['ansible_ssh_private_key_file'] is defined %}
   IdentityFile {{ hostvars[host]['ansible_ssh_private_key_file'] }}

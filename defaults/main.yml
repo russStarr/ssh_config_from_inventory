@@ -3,3 +3,6 @@
 ssh_configs_dir: "{{ playbook_dir }}/ssh_configs"
 ssh_config_file: "{{ ssh_configs_dir }}/ssh_config"
 inventory_groups: ["all"]
+ssh_config_host_prefix:
+ssh_config_default_user:
+ssh_config_project_name:
