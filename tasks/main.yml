@@ -5,12 +5,14 @@
     path: "{{ ssh_configs_dir }}"
     state: directory
     mode: 0755
+    
 - name: create a local config file
   template:
     src: "ssh_config.j2"
     dest: "{{ ssh_configs_dir }}/ssh_config_{{item}}"
   with_items:
     - "{{ inventory_groups }}"
+    
 - name: Merge the config with your local SSH config
   blockinfile:
     block: "{{ lookup('file', '{{ ssh_configs_dir }}/ssh_config_{{item}}') }}"
@@ -18,6 +20,6 @@
     backup: yes
     create: yes
     insertafter: EOF
-    marker: "# {mark} ANSIBLE MANAGED BLOCK (ssh_config_from_inventory) {{item}}"
+    marker: "# {mark} ANSIBLE MANAGED BLOCK (ssh_config_from_inventory) {{ ssh_config_project_name }} {{item}}"
   with_items:
     - "{{ inventory_groups }}"
